@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MyUsersHiltApp</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="street">Street</string>
+    <string name="city">City</string>
+    <string name="phone">Phone</string>
+    <string name="website">Website</string>
+    <string name="suite">Suite</string>
 </resources>
