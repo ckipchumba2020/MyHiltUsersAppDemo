@@ -1,13 +1,23 @@
 package com.example.myusershiltapp.repositories
 
+import com.example.myusershiltapp.ResponseResult
+import com.example.myusershiltapp.datasources.RemoteDataSource
 import com.example.myusershiltapp.models.UserResponse
-import com.example.myusershiltapp.models.UserResponseItem
-import com.example.myusershiltapp.services.UserService
-import retrofit2.Response
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val userService: UserService) {
-    suspend fun getUsers(): Response<UserResponse> {
-        return userService.getUsers()
+class UserRepository @Inject constructor(private val remoteDataSource: RemoteDataSource) {
+
+    /**
+     * Returns a Flow of Response Result
+     */
+    suspend fun getUsersFlow(): Flow<ResponseResult<UserResponse>> {
+        return flow {
+            emit(ResponseResult.loading())  // emit loading status....
+
+            val responseResult = remoteDataSource.getUsersResult()
+            emit(responseResult)           // emit results......
+        }
     }
 }

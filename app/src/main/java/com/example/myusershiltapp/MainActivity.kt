@@ -2,6 +2,7 @@ package com.example.myusershiltapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,12 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         init()
 
-        _mainViewModel.getUsers().observe(this) { users ->
-            users?.let { u ->
-                usersAdapter.updateData(u)
-
-            }
-        }
+        observeResult()
     }
 
     private fun init() {
@@ -38,5 +34,33 @@ class MainActivity : AppCompatActivity() {
         usersAdapter = UserAdapter(userList)
 
         recyclerView.adapter = usersAdapter
+    }
+
+    private fun observeResult() {
+        _mainViewModel.getUsersResult().observe(this) { it ->
+            it?.let { result ->
+
+                when(result.status) {
+                    ResponseResult.Status.SUCCESS  -> {
+                        // TODO: hide progress bar
+
+                        result.data?.let {
+                            usersAdapter.updateData(it)
+                        }
+                    }
+
+                    ResponseResult.Status.ERROR  -> {
+                        // TODO: hide progress bar
+                        result.message?.let {
+                            Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+                        }
+                    }
+
+                    ResponseResult.Status.LOADING  -> {
+                        // TODO: show progress bar
+                    }
+                }
+            }
+        }
     }
 }

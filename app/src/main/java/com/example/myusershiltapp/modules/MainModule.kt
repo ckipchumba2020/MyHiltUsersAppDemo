@@ -1,6 +1,7 @@
 package com.example.myusershiltapp.modules
 
 import com.example.myusershiltapp.Config
+import com.example.myusershiltapp.datasources.RemoteDataSource
 import com.example.myusershiltapp.repositories.UserRepository
 import com.example.myusershiltapp.services.AuthInterceptor
 import com.example.myusershiltapp.services.UserService
@@ -61,9 +62,13 @@ object MainModule {
         return retrofit.create(UserService::class.java)
     }
 
+    fun provideRemoteDataSource(userService: UserService): RemoteDataSource {
+        return RemoteDataSource(userService)
+    }
+
     @Singleton
     @Provides
-    fun provideUserRepository(userService: UserService): UserRepository {
-        return UserRepository(userService);
+    fun provideUserRepository(remoteDataSource: RemoteDataSource): UserRepository {
+        return UserRepository(remoteDataSource)
     }
 }
