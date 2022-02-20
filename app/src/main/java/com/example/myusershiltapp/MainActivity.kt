@@ -40,8 +40,8 @@ class MainActivity : AppCompatActivity() {
         _mainViewModel.getUsersResult().observe(this) {
             it?.let { result ->
 
-                when(result.status) {
-                    Status.SUCCESS  -> {
+                when (result.status) {
+                    Status.SUCCESS -> {
                         // TODO: hide progress bar
 
                         result.data?.let { users ->
@@ -50,19 +50,23 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-                    Status.ERROR  -> {
+                    Status.ERROR -> {
                         // TODO: hide progress bar
                         result.message?.let {
                             Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
                         }
                     }
 
-                    Status.LOADING  -> {
+                    Status.LOADING -> {
                         // TODO: show progress bar
 
                         result.data?.let { users ->
-                            usersAdapter.updateData(users)
-                            Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+                            if (users.isNotEmpty()) {
+                                usersAdapter.updateData(users)
+                                Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+                            } else {
+                                Toast.makeText(this, "No cached data", Toast.LENGTH_LONG).show()
+                            }
                         }
                     }
                 }

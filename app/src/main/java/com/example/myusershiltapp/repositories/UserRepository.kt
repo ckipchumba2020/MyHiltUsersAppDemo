@@ -34,8 +34,8 @@ class UserRepository @Inject constructor(
                     userDao.deleteAll(it)       // delete cached
                     userDao.insertAll(it)       // insert latest
                 }
-                emit(responseResult)           // emit results......
             }
+            emit(responseResult)           // emit results......
 
         }.flowOn(Dispatchers.IO)
     }
