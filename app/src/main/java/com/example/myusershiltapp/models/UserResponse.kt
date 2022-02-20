@@ -1,4 +1,4 @@
 package com.example.myusershiltapp.models
 
 
-class UserResponse : ArrayList<User>()
+class UserResponse(val users: List<User>)

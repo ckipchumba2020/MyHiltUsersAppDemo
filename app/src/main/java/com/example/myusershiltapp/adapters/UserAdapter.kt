@@ -24,15 +24,15 @@ class UserAdapter(private val userList: ArrayList<User>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val userView = LayoutInflater.from(parent.context).inflate(R.layout.user_row_item, parent, false)
 
-        return ViewHolder(userView);
+        return ViewHolder(userView)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textViewName.text = userList[position].name
         holder.textViewEmail.text = userList[position].email
-        holder.textViewStreet.text = userList[position].address.street
-        holder.textViewSuite.text = userList[position].address.suite
-        holder.textViewCity.text = userList[position].address.city
+        holder.textViewStreet.text = userList[position].address?.street ?: "-"
+        holder.textViewSuite.text = userList[position].address?.suite ?: "-"
+        holder.textViewCity.text = userList[position].address?.city ?: "-"
         holder.textViewPhone.text = userList[position].phone
         holder.textViewWebsite.text = userList[position].website
     }

@@ -1,31 +1,34 @@
 package com.example.myusershiltapp.datasources
 
 import android.util.Log
-import com.example.myusershiltapp.ResponseResult
+import com.example.myusershiltapp.Result
+import com.example.myusershiltapp.Status
+import com.example.myusershiltapp.models.User
 import com.example.myusershiltapp.models.UserResponse
 import com.example.myusershiltapp.services.UserService
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(private val userService: UserService) {
     private val _tag: String = "RemoteDataSource"
+
     /**
      * Get Users from Remote Data Source
      * Returns a Response Result
      */
-    suspend fun getUsersResult(): ResponseResult<UserResponse> {
+    suspend fun getUsersResult(): Result<List<User>> {
         return try {
             val response = userService.getUsers()
 
             return if (response.isSuccessful) {
-                ResponseResult(ResponseResult.Status.SUCCESS, response.body(), null, null)
+                Result.success(response.body())
             } else {
-                Log.d(_tag, "Exception: " + response.code())
+                Log.d(_tag, "Exception Response: " + response.code())
 
-                ResponseResult(ResponseResult.Status.ERROR, null, null, "Error ${response.message()}")
+                Result.error("Error ${response.message()}")
             }
         } catch (e: Exception) {
-            Log.d(_tag, "Exception: " + e.message)
-            ResponseResult(ResponseResult.Status.ERROR, null, null, "Unknown Error.")
+            Log.d(_tag, "Exception GetUsers: " + e.message)
+            Result.error("Unknown Error. Check Internet Connection.")
         }
 
     }

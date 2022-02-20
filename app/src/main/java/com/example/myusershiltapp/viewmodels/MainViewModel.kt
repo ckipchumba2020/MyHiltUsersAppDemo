@@ -3,7 +3,8 @@ package com.example.myusershiltapp.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myusershiltapp.ResponseResult
+import com.example.myusershiltapp.Result
+import com.example.myusershiltapp.models.User
 import com.example.myusershiltapp.models.UserResponse
 import com.example.myusershiltapp.repositories.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,9 +13,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(private val userRepository: UserRepository): ViewModel() {
-    private val _usersResultLiveData: MutableLiveData<ResponseResult<UserResponse>> = MutableLiveData()
+    private val _usersResultLiveData: MutableLiveData<Result<List<User>>> = MutableLiveData()
 
-    fun getUsersResult(): MutableLiveData<ResponseResult<UserResponse>> {
+    fun getUsersResult(): MutableLiveData<Result<List<User>>> {
         return _usersResultLiveData
     }
 

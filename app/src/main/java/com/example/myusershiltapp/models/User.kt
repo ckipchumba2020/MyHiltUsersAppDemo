@@ -1,6 +1,7 @@
 package com.example.myusershiltapp.models
 
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -10,11 +11,15 @@ data class User(
     @PrimaryKey
     val id: Int,
 
-    val address: Address,
-    val company: Company,
-    val email: String,
-    val name: String,
-    val phone: String,
-    val username: String,
-    val website: String
+    @Embedded
+    val address: Address?,
+
+    @Embedded
+    val company: Company?,
+
+    val email: String?,
+    val name: String?,
+    val phone: String?,
+    val username: String?,
+    val website: String?
 )

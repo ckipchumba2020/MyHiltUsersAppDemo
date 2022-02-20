@@ -3,6 +3,7 @@ package com.example.myusershiltapp.modules
 import com.example.myusershiltapp.Config
 import com.example.myusershiltapp.datasources.RemoteDataSource
 import com.example.myusershiltapp.repositories.UserRepository
+import com.example.myusershiltapp.room.UserDao
 import com.example.myusershiltapp.services.AuthInterceptor
 import com.example.myusershiltapp.services.UserService
 import dagger.Module
@@ -70,7 +71,10 @@ object MainModule {
 
     @Singleton
     @Provides
-    fun provideUserRepository(remoteDataSource: RemoteDataSource): UserRepository {
-        return UserRepository(remoteDataSource)
+    fun provideUserRepository(
+        remoteDataSource: RemoteDataSource,
+        userDao: UserDao
+    ): UserRepository {
+        return UserRepository(remoteDataSource, userDao)
     }
 }

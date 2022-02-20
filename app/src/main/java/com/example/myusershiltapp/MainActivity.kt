@@ -37,27 +37,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeResult() {
-        _mainViewModel.getUsersResult().observe(this) { it ->
+        _mainViewModel.getUsersResult().observe(this) {
             it?.let { result ->
 
                 when(result.status) {
-                    ResponseResult.Status.SUCCESS  -> {
+                    Status.SUCCESS  -> {
                         // TODO: hide progress bar
 
-                        result.data?.let {
-                            usersAdapter.updateData(it)
+                        result.data?.let { users ->
+                            usersAdapter.updateData(users)
+                            Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
                         }
                     }
 
-                    ResponseResult.Status.ERROR  -> {
+                    Status.ERROR  -> {
                         // TODO: hide progress bar
                         result.message?.let {
                             Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
                         }
                     }
 
-                    ResponseResult.Status.LOADING  -> {
+                    Status.LOADING  -> {
                         // TODO: show progress bar
+
+                        result.data?.let { users ->
+                            usersAdapter.updateData(users)
+                            Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             }
