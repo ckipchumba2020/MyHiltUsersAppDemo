@@ -62,6 +62,8 @@ object MainModule {
         return retrofit.create(UserService::class.java)
     }
 
+    @Singleton
+    @Provides
     fun provideRemoteDataSource(userService: UserService): RemoteDataSource {
         return RemoteDataSource(userService)
     }

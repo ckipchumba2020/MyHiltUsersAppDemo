@@ -7,13 +7,13 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myusershiltapp.adapters.UserAdapter
-import com.example.myusershiltapp.models.UserResponseItem
+import com.example.myusershiltapp.models.User
 import com.example.myusershiltapp.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val userList = ArrayList<UserResponseItem>()
+    private val userList = ArrayList<User>()
     private val _mainViewModel by viewModels<MainViewModel>()
     private lateinit var usersAdapter: UserAdapter
 

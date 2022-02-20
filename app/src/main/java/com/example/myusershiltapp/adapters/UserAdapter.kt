@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myusershiltapp.R
-import com.example.myusershiltapp.models.UserResponseItem
+import com.example.myusershiltapp.models.User
 
-class UserAdapter(private val userList: ArrayList<UserResponseItem>) :
+class UserAdapter(private val userList: ArrayList<User>) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView = view.findViewById(R.id.textViewName)
@@ -44,7 +44,7 @@ class UserAdapter(private val userList: ArrayList<UserResponseItem>) :
     /**
      * Update List in Activity
      */
-    fun updateData(newList: List<UserResponseItem>) {
+    fun updateData(newList: List<User>) {
         userList.clear()
         userList.addAll(newList)
         notifyDataSetChanged()
